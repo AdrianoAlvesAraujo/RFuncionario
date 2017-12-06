@@ -16,6 +16,7 @@ struct funcionario{
 
 // prótotipo das funções
 int menu();
+void arq();
 void novo();
 void pesquisar();
 void modificar();
@@ -35,24 +36,8 @@ int menu(int y){
    return y;
     }
 
+void arq(){
 
-
-int main(void){
-
-    int a;
-    int b;
-    int c;
-    int d;
-    int e;
-    int y = 0;
-    int x = 0;
-    int reg;
-    char name[20];
-    char last_name[20];
-    char age[10];
-    char salary[20];
-    char occupation[20];
-    
     struct funcionario n_registro = {0,"","","","",""};
 
     FILE *arquivo;
@@ -68,9 +53,29 @@ int main(void){
                 fwrite(&n_registro, sizeof(struct funcionario), 1, arquivo);
             }
             fclose(arquivo);
-        
-            
-       
+
+
+}
+
+
+int main(void){
+
+    int a;
+    int y = 0;
+    int x = 0;
+    int reg;
+    char name[20];
+    char last_name[20];
+    char age[10];
+    char salary[20];
+    char occupation[20];
+    
+    
+    printf("Digite 1 se eh o primeiro Acesso.\nDigite 0 se nao.\n");
+    scanf("%d", &a);
+    if(a == 1){
+        arq();        
+       }
        while((x = menu(y))!= 0){
         switch(x){
                     
@@ -121,7 +126,7 @@ void novo(int registro, char nome[20], char sobrenome[20], char idade[10], char 
         printf("Arquivo nao pode ser aberto\n");
     }else{
 
-            printf("Digite numero do Novo Registro do funcionario""(1-100 ou 0 para encerrar)\n");
+            printf("\nDigite:\nNumero do Novo Registro do funcionario: 1 - 100\nPara Retornar ao Menu Principal: 0 \n");
             fflush(stdin);
             scanf("%d", &n_registro.registro);
             while(n_registro.registro != 0){
@@ -167,7 +172,7 @@ void pesquisar(int registro, char nome[20], char sobrenome[20], char idade[10], 
                 if(n_registro.registro != 0){
 
                 printf("%d%13s%16s%10s%15s%15s\n", n_registro.registro, n_registro.nome, n_registro.sobrenome, n_registro.idade, n_registro.salario, n_registro.cargo);
-
+                fflush(stdin);
 
                 }
 
@@ -195,7 +200,7 @@ void modificar(int registro, char nome[20], char sobrenome[20], char idade[10], 
         printf("Arquivo nao pode ser aberto\n");
     }else{
 
-            printf("Digite numero de Registro a Modificar""(1-100 ou 0 para encerrar)\n");
+            printf("Digite:\nNumero de Registro a Modificar: 1 - 100 \nPara Retornar ao Menu Principal:  0\n");
             fflush(stdin);
             scanf("%d", &mod_reg);
             
@@ -249,7 +254,7 @@ void deletar(int registro, char nome[20], char sobrenome[20], char idade[10], ch
         printf("Arquivo nao pode ser aberto\n");
     }else{
 
-            printf("Digite numero de Registro de funcionario a excluir""(1-100):\n");
+            printf("\nDigite:\nNumero de Registro de funcionario a Excluir: 1 - 100 \n");
             fflush(stdin);
             scanf("%d", &reg);
             fseek(arquivo, (reg - 1) *sizeof(struct funcionario), SEEK_SET);
@@ -271,24 +276,3 @@ void deletar(int registro, char nome[20], char sobrenome[20], char idade[10], ch
             }
                
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	       
